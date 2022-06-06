@@ -1,0 +1,24 @@
+﻿@model MVCWebApp.Models.Doctor.PatientTemprature
+@{
+    ViewData["Title"] = "Doctor";
+}
+
+@if (ViewBag.Message != null)
+{
+    <p>@ViewBag.Message</p>
+}
+<h1>Welcome to check if you have fever or not</h1>
+@using (Html.BeginForm("Index", "Doctor", FormMethod.Post))
+{
+    <tr>
+        <td> Temperature : </td>
+        <td>
+            
+            @Html.TextBoxFor(m => m.patientTemp, new { title = "FeverCheck" })
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td><input type="submit" value="submit" /></td>
+    </tr>
+}

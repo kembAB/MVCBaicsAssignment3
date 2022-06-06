@@ -1,0 +1,76 @@
+﻿@*https://localhost:44325/GuessingGame/Index*@
+@{
+    ViewData["Title"] = "Home Page";
+}
+<script type="text/javascript">
+    function ShowModal() {
+        $("#resultdialog").modal('show');
+    }
+</script>
+@model MVCWebApp.Models.GuessingProperties
+<div class="card text-center" />
+<div class="card-header">
+    <h1 class="display-4">Welcome to guess the Number. </h1>
+    <h3> Please Guess the number</h3>
+</div>
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.ValidationMessageFor(x => x.EnteredNum, null, new { @class = "text-danger" })
+    <div class="card-body">
+        <div class="input-group mb-3">
+            @Html.HiddenFor(x => x.randomNumber)
+
+            @Html.TextBoxFor(x => x.EnteredNum, new { @class = "form-control" })
+
+
+
+
+
+            <div class="input-group-append">
+                <button type="submit" class="btn btn-primary btn-outline-secondary">Submit</button>
+            </div>
+
+        </div>
+    </div>
+
+    @if (Model.ShowResult)
+    {
+        <div class="modal" tabindex="-1" role="dialog" id="resultdialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">result</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>  @ViewBag.Result;</p>
+                    </div>
+                    <div class="modal-footer">
+
+                        @if (Model.Success)
+                        {
+
+
+
+
+                            <a class="btn text-dark text-center" asp-area="" asp-controller="Home" asp-action="Index">Start Again</a>
+                        }
+                        else
+
+                        { <button type="button" class="btn text-dark text-center" data-dismiss="modal">Try again</button>}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>ShowModal();</script>
+
+    }
+}
